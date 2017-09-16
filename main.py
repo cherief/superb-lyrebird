@@ -2,6 +2,7 @@
 Strips metadata from images.
 """
 
+import PIL
 from PIL import Image
 import piexif
 import argparse
