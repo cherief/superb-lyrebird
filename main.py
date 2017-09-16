@@ -1,7 +1,7 @@
 """
 Strips metadata from images.
 """
-
+# import PIL
 from PIL import Image
 import piexif
 import argparse
@@ -46,9 +46,9 @@ def rotate_02(filename):
 
 
 if __name__ == "__main__":
-    print(PIL.PILLOW_VERSION)
-    print(piexif.VERSION)
-    print(argparse.__version__)
+    # print(PIL.PILLOW_VERSION)
+    # print(piexif.VERSION)
+    # print(argparse.__version__)
 
     rotate_02('test03.jpg')
 
