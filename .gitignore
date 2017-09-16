@@ -3,3 +3,4 @@ uploads/
 image_path
 *.jpg
 *.JPG
+*.log

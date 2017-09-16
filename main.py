@@ -4,6 +4,15 @@ import argparse
 import glob
 import os
 import sys
+import logging
+from datetime import datetime
+
+logfile = datetime.now().strftime('log_%Y-%m-%d-%H-%M.log')
+# formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+logging.basicConfig(filename=logfile,level=logging.DEBUG)
+
+logging.info('  ' + datetime.now().strftime('%H:%M:%S') + ' -------- STARTING METADATA STRIP --------')
 
 
 def strip_metadata(filename):
@@ -60,13 +69,23 @@ if __name__ == "__main__":
         img_name = img_name.split('/')[-1]
         
         # Move image before stripping metadata
-        os.system('mv ' + os.path.join(image_path,img_name) + ' ' + os.path.join(stripped_path,img_name))
+        os.system('cp ' + os.path.join(image_path,img_name) + ' ' + os.path.join(stripped_path,img_name))
 
-        # Strip metadata and rotate image
-        img = strip_metadata(os.path.join(stripped_path,img_name))
+        img = Image.open(os.path.join(stripped_path,img_name))
+        width, height = img.size
 
-        # Save image
-        img.save(os.path.join(stripped_path,img_name),quality=95)
+        if width == height:
+            # Strip metadata and rotate image
+            img = strip_metadata(os.path.join(stripped_path,img_name))
+
+            # Save image
+            img.save(os.path.join(stripped_path,img_name),quality=95)
+        else:
+            # Delete non-square photos
+            os.system('rm ' + os.path.join(stripped_path,img_name))
+
+        
+            
 
 
 
